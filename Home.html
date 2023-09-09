@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Harsha's Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-image">
+        <div class="overlay">
+            <div class="container">
+                <h1 class="typing" id="typing"></h1> 
+            </div>
+        </div>
+        <div class="links-container">
+            <a href="aboutme.html">About Me</a>
+            <a href="Projects.html">My Projects</a>
+            <a href="#contact">Contact Me</a>
+        </div>
+    </div>
+
+    <script>
+        const greeting = ['Hey You👋', 'Welcome To My Portfolio','Here You Can Explore About Me', 'My Projects','And Much More...', 'Thank you!!!'];
+        let currentGreetingIndex = 0;
+        let currentCharacterIndex = 0;
+        let isDeleting = false;
+        let isPaused = false;
+        let pauseEnd = 0;
+
+        function typeWriterEffect() {
+            const greetingElement = document.getElementById('typing');
+
+            if (isPaused && Date.now() > pauseEnd) {
+                isPaused = false;
+                if (isDeleting) {
+                    currentGreetingIndex = (currentGreetingIndex + 1) % greeting.length;
+                    isDeleting = false;
+                } else {
+                    isDeleting = true;
+                }
+            }
+
+            if (!isPaused && !isDeleting && currentCharacterIndex === greeting[currentGreetingIndex].length) {
+                isPaused = true;
+                pauseEnd = Date.now() + 800; 
+                return setTimeout(typeWriterEffect, 50);
+            }
+
+            if (!isPaused && isDeleting && currentCharacterIndex === 0) {
+                isPaused = true;
+                pauseEnd = Date.now() + 200; 
+                return setTimeout(typeWriterEffect, 50);
+            }
+
+            const timeout = isDeleting ? 100 : 200;
+            greetingElement.innerText = greeting[currentGreetingIndex].substring(0, currentCharacterIndex);
+            currentCharacterIndex = isDeleting ? currentCharacterIndex - 1 : currentCharacterIndex + 1;
+            setTimeout(typeWriterEffect, timeout);
+        }
+        typeWriterEffect();
+    </script>
+</body>
+</html>
+<style>
+    body, h1, h2, h3, p, a {
+        margin: 0;
+        padding: 0;
+        font-family: 'Montserrat', sans-serif;
+        color: #ffffff;
+        text-decoration: none;
+    }
+    
+    .background-image {
+        position: relative;
+        height: 100vh;
+        background-image: url('/Images/Background.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    
+    .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.6); 
+    }
+    
+    .container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+    }
+    
+    .typing {
+        margin-top: 0;
+        padding-bottom: 2rem; 
+        font-weight: 700;
+        font-size: 3vw;
+        color: white;
+        display: inline-block;
+        position: relative;
+        padding-left: 100px;
+    }
+    
+    #typing::after {
+        content: '|';
+        position: relative;
+        right: 0;
+        animation: blink 3s step-end infinite;
+    }
+    
+    @keyframes blink {
+        from, to {
+            color: transparent;
+        }
+        50% {
+            color: yellow;
+        }
+    }
+
+    .links-container {
+        position: absolute;
+        top: 1rem;
+        right: 1rem; 
+        display: flex;
+    }
+    
+    .links-container a {
+        color: #ffffff;
+        font-size: 16px;
+        margin-right: 20px;
+        text-decoration: none;
+    }
+    
+    .links-container a:hover {
+        color: yellow;
+        text-decoration: underline;
+    }
+    
+    @media (max-width: 768px) {
+        .links-container {
+            top: 1rem; 
+            right: 1rem; 
+        }
+    
+        .typing {
+            padding-left: 0;
+            font-size: 5vw; 
+        }
+    }
+    </style>
+    
