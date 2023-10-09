@@ -2,8 +2,8 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
-
-require 'vendor/autoload.php'; //including php mailer
+ //including php mailer
+require 'vendor/autoload.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
     $email = $_POST["email"];
@@ -21,13 +21,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
         $mail->Port = 587;
 
-        // Sender
+        // for Sender
         $mail->setFrom(' ', $name); 
 
-        // Recipient
+        //for Recipient
         $mail->addAddress(' ', ' your Name'); 
 
-        // content of email that you will receive
+        // content of email that you want to receive
         $mail->isHTML(false);
         $mail->Subject = 'Contact Form Submission from ' . $name;
         $mail->Body = "Name: $name\nEmail: $email\n\n$message";
